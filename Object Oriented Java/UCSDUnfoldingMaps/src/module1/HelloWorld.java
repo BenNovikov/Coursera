@@ -4,7 +4,11 @@ import processing.core.PApplet;
 import de.fhpotsdam.unfolding.UnfoldingMap;
 import de.fhpotsdam.unfolding.geo.Location;
 import de.fhpotsdam.unfolding.providers.AbstractMapProvider;
-import de.fhpotsdam.unfolding.providers.Google;
+//import de.fhpotsdam.unfolding.providers.Google.*; // automated queries... we can't process your request right now.
+//import de.fhpotsdam.unfolding.providers.OpenStreetMap.OpenStreetMapProvider;
+//import de.fhpotsdam.unfolding.providers.Yahoo.HybridProvider; //Service unavailable
+//import de.fhpotsdam.unfolding.providers.MapQuestProvider; //not an AbstractMapProvider
+import de.fhpotsdam.unfolding.providers.Microsoft.*; //AerialProvider, HybridProvider, RoadProvider
 import de.fhpotsdam.unfolding.providers.MBTilesMapProvider;
 import de.fhpotsdam.unfolding.utils.MapUtils;
 
@@ -46,9 +50,9 @@ public class HelloWorld extends PApplet
 		this.background(200, 200, 200);
 		
 		// Select a map provider
-		AbstractMapProvider provider = new Google.GoogleTerrainProvider();
+		AbstractMapProvider provider = new HybridProvider();
 		// Set a zoom level
-		int zoomLevel = 12;
+		int zoomLevel = 17;
 		
 		if (offline) {
 			// If you are working offline, you need to use this provider 
