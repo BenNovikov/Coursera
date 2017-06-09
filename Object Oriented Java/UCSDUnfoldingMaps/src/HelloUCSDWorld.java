@@ -11,10 +11,14 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
  */
 public class HelloUCSDWorld extends PApplet {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	UnfoldingMap map;
 
 	public void setup() {
-		size(800, 600, OPENGL);
+		size(800, 600);
 
 		map = new UnfoldingMap(this, new Google.GoogleTerrainProvider());
 		map.zoomAndPanTo(14, new Location(32.881, -117.238)); // UCSD
