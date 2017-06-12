@@ -11,10 +11,6 @@ import de.fhpotsdam.unfolding.utils.MapUtils;
  */
 public class HelloUCSDWorld extends PApplet {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	UnfoldingMap map;
 
 	public void setup() {
