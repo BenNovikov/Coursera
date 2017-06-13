@@ -24,7 +24,7 @@ public class SQLiteJDBCSample  {
 //		processSQL();
 		
 		Map<String, Float> loadedData = 
-				loadDataFromCSV("LifeExpectancyWorldBankModule3.csv");
+				loadDataFromCSV("data/LifeExpectancyWorldBankModule3.csv");
 	}
 	private static void processSQL() throws ClassNotFoundException{
 		// load the sqlite-JDBC driver using the current class loader
@@ -33,7 +33,6 @@ public class SQLiteJDBCSample  {
 	    Connection connection = null;
 	    try{
 	    	// create a database connection
-	    	// connection = DriverManager.getConnection("jdbc:sqlite:D:/Workshop/SQLite/mydatabase.db");
 	    	connection = DriverManager.getConnection("jdbc:sqlite:mydatabase.db");
 	    	Statement statement = connection.createStatement();
 	    	statement.setQueryTimeout(30);  // set timeout to 30 sec.
