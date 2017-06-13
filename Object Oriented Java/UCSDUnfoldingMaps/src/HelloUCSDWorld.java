@@ -26,5 +26,5 @@ public class HelloUCSDWorld extends PApplet {
 		background(0);
 		map.draw();
 	}
-
+	
 }

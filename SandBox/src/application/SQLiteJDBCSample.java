@@ -1,18 +1,32 @@
 package application;
 
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import com.opencsv.CSVReader;
+
+import java.io.FileReader;
+import java.io.IOException;
+
 //download jar from: https://bitbucket.org/xerial/sqlite-jdbc/downloads/
 //Configure Build Path => Libraries/Add External JAR
 
-public class SQLiteJDBCSample {
-	public static void main(String[] args) throws ClassNotFoundException
-	  {
+public class SQLiteJDBCSample  {
+	public static void main(String[] args) throws ClassNotFoundException{
+		
+//		processSQL();
+		
+		Map<String, Float> loadedData = 
+				loadDataFromCSV("LifeExpectancyWorldBankModule3.csv");
+	}
+	private static void processSQL() throws ClassNotFoundException{
 		// load the sqlite-JDBC driver using the current class loader
 	    Class.forName("org.sqlite.JDBC");
 
@@ -50,5 +64,24 @@ public class SQLiteJDBCSample {
 	    		System.err.println(e);
 	    	}
 	    }
+	    
 	  }
+	
+	private static Map<String, Float> loadDataFromCSV(String fileName){
+		Map<String, Float> loadedData = new HashMap<String, Float>();
+
+		CSVReader reader = null;
+        try {
+            reader = new CSVReader(new FileReader(fileName));
+            String[] line;
+            while ((line = reader.readNext()) != null) {
+            	System.out.println("Country: " + line[2] + " Expectancy: " + line[4]);
+            }
+            
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+			
+		return loadedData;
 	}
+}
