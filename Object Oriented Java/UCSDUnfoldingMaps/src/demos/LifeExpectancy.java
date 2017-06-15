@@ -32,7 +32,7 @@ public class LifeExpectancy extends PApplet {
 
 	public void setup() {
 		size(800, 600);
-		map = new UnfoldingMap(this, 50, 50, 700, 500, new Google.GoogleMapProvider());
+		map = new UnfoldingMap(this, 50, 100, 700, 500, new Google.GoogleMapProvider());
 		MapUtils.createDefaultEventDispatcher(this, map);
 
 		// Load lifeExpectancy data

@@ -10,10 +10,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.opencsv.CSVReader;
-
 import java.io.FileReader;
 import java.io.IOException;
+
+import com.opencsv.CSVReader;
 
 //download jar from: https://bitbucket.org/xerial/sqlite-jdbc/downloads/
 //Configure Build Path => Libraries/Add External JAR
@@ -21,12 +21,13 @@ import java.io.IOException;
 public class SQLiteJDBCSample  {
 	public static void main(String[] args) throws ClassNotFoundException{
 		
-//		processSQL();
+		Map<String, Float> loadedData = loadDataFromCSV("data/LifeExpectancyWorldBankModule3.csv");
+		System.out.println("\tRead: " + loadedData.size() + " entries");
 		
-		Map<String, Float> loadedData = 
-				loadDataFromCSV("data/LifeExpectancyWorldBankModule3.csv");
+		processSQL(loadedData);
 	}
-	private static void processSQL() throws ClassNotFoundException{
+	
+	private static void processSQL(Map<String, Float> data) throws ClassNotFoundException{
 		// load the sqlite-JDBC driver using the current class loader
 	    Class.forName("org.sqlite.JDBC");
 
@@ -37,15 +38,21 @@ public class SQLiteJDBCSample  {
 	    	Statement statement = connection.createStatement();
 	    	statement.setQueryTimeout(30);  // set timeout to 30 sec.
 
-	    	statement.executeUpdate("drop table if exists person");
-	    	statement.executeUpdate("create table person (id integer, name string)");
-	    	statement.executeUpdate("insert into person values(1, 'leo')");
-	    	statement.executeUpdate("insert into person values(2, 'yui')");
-	    	ResultSet rs = statement.executeQuery("select * from person");
+	    	statement.executeUpdate("drop table if exists lifexpect");
+	    	statement.executeUpdate("create table lifexpect (country string, years float)");
+	    	for (Map.Entry<String, Float> entry : data.entrySet()) {
+	    		String key = entry.getKey();
+	    	    Float value = entry.getValue();
+	    	    
+	    	    statement.executeUpdate(
+	    	    		"INSERT INTO lifexpect VALUES ('" + key + "','" + value + "')");
+	    	}
+	    		    	
+	    	ResultSet rs = statement.executeQuery("select * from lifexpect");
 	    	while(rs.next()){
 	    		// read the result set
-	    		System.out.println("name = " + rs.getString("name"));
-	    		System.out.println("id = " + rs.getInt("id"));
+	    		System.out.print("country = " + rs.getString("country") + "; ");
+	    		System.out.println("years = " + rs.getInt("years"));
 	    		}
 	    	}
 	    catch(SQLException e){
@@ -66,18 +73,32 @@ public class SQLiteJDBCSample  {
 	    
 	  }
 	
-	private static Map<String, Float> loadDataFromCSV(String fileName){
+	private static Map<String, Float> loadDataFromCSV(String fileName) {
 		Map<String, Float> loadedData = new HashMap<String, Float>();
-
 		CSVReader reader = null;
+		
         try {
-            reader = new CSVReader(new FileReader(fileName));
-            String[] line;
-            while ((line = reader.readNext()) != null) {
-            	System.out.println("Country: " + line[2] + " Expectancy: " + line[4]);
-            }
+        	//first line - CSV file header skipped
+            reader = new CSVReader(new FileReader(fileName), ',', '\"', 1);
             
-        } catch (IOException e) {
+            String key;
+            float value = 0;
+            for (String[] row : reader) {
+            	try {
+            		value = Float.parseFloat(row[4]);
+                	if((key = new String(row[2]).replace("'", "")) != null) {
+                		loadedData.put(key, value);
+                		System.out.println(key + " : " + value); 
+                	} 
+            	} 
+            	catch(NumberFormatException  e) {
+            		/*
+            		 * omit missed (NaN) values with data cleaning 
+            		 */
+            	}            	
+            }            
+        } 
+        catch (IOException e) {
             e.printStackTrace();
         }
 			
