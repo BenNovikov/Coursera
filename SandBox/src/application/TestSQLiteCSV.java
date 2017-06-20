@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import java.io.FileReader;
@@ -18,7 +17,7 @@ import com.opencsv.CSVReader;
 //download jar from: https://bitbucket.org/xerial/sqlite-jdbc/downloads/
 //Configure Build Path => Libraries/Add External JAR
 
-public class SQLiteJDBCSample  {
+public class TestSQLiteCSV  {
 	public static void main(String[] args) throws ClassNotFoundException{
 		
 		Map<String, Float> loadedData = loadDataFromCSV("data/LifeExpectancyWorldBankModule3.csv");
@@ -28,7 +27,7 @@ public class SQLiteJDBCSample  {
 	}
 	
 	private static void processSQL(Map<String, Float> data) throws ClassNotFoundException{
-		// load the sqlite-JDBC driver using the current class loader
+		// load the SQlite-JDBC driver using the current class loader
 	    Class.forName("org.sqlite.JDBC");
 
 	    Connection connection = null;

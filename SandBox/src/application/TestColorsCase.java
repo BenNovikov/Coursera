@@ -1,6 +1,6 @@
 package application;
 
-public class Test1 {
+public class TestColorsCase {
 
 	public static void main(String[] args) {
 		String colorName = "RED";

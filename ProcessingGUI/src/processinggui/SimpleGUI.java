@@ -1,3 +1,5 @@
+package processinggui;
+
 import processing.core.PApplet;
 import processing.core.PImage;
 
@@ -6,7 +8,7 @@ public class SimpleGUI extends PApplet {
 	int[] color = new int[4];
 	
     public static void main(String[] args) {
-        PApplet.main("SimpleGUI");
+        PApplet.main("processinggui.SimpleGUI");
     }
     
     public void settings() {
