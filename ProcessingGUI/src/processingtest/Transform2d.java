@@ -73,11 +73,8 @@ public class Transform2d extends PApplet {
 		rect(22, 84, 16, 50); // left leg
 		rect(40, 84, 16, 50); // right leg
 		
-		if (mousePressed) {
-			fill(255, 0, 0);
-		} else {
-			fill(255, 255, 255);
-		}		
+		float pressColor = mousePressed ? 0 : 255;
+		fill(255, pressColor, pressColor);
 		ellipse(30, 12, 12, 12); // left eye
 		ellipse(47, 12, 12, 12);  // right eye
 	}
