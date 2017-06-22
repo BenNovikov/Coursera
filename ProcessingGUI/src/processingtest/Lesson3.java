@@ -7,21 +7,25 @@ public class Lesson3 extends PApplet {
 	public static void main(String[] args) {
 		PApplet.main("processingtest.Lesson3");
 	}
-	Zoog zoog;
+	Zoog zoog1;
+	Zoog zoog2;
 
 	public void settings() {
 		size(200, 200);
 	}
 	public void setup() {
 		smooth();
-		zoog = new Zoog(100, 125, 60, 60, 16);
+		zoog1 = new Zoog(50, 125, 60, 60, 16);
+		zoog2 = new Zoog(150, 125, 50, 50, 10);
 	}
 	public void draw() {
 		background(255);
 		// mouseX position determines speed factor
 		float factor = constrain(mouseX/10, 0, 5);
-		zoog.jiggle(factor);
-		zoog.display();
+		zoog1.jiggle(factor);
+		zoog1.display();
+		zoog2.jiggle(factor);
+		zoog2.display();
 	}
 
 	class Zoog {
