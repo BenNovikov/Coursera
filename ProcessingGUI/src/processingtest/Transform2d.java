@@ -6,6 +6,7 @@ import processing.core.PShape;
 public class Transform2d extends PApplet {
 	Robot robot1;
 	Robot robot2;
+	Robot robot3;
 	PShape star;
 	
 	public static void main(String[] args) {
@@ -22,6 +23,7 @@ public class Transform2d extends PApplet {
 		
 		robot1 = new Robot(50, 150, new int[] {0, 255, 0});
 		robot2 = new Robot();
+		robot3 = new Robot(250, 150, 255, 255, 0);
 		
 		starSetup();
 	}
@@ -31,6 +33,7 @@ public class Transform2d extends PApplet {
 		
 		robot1.draw();
 		robot2.draw();
+		robot3.draw();
 		
 		translate(mouseX, mouseY);
 		scale((float)0.25);
