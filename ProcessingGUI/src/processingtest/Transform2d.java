@@ -1,6 +1,7 @@
 package processingtest;
 
 import processing.core.PApplet;
+import processing.core.PImage;
 import processing.core.PShape;
 
 public class Transform2d extends PApplet {
@@ -8,28 +9,34 @@ public class Transform2d extends PApplet {
 	Robot robot2;
 	Robot robot3;
 	PShape star;
+	PImage img;
+	int backColor;
 	
 	public static void main(String[] args) {
 		PApplet.main("processingtest.Transform2d");	
 	}
 
 	public void settings() {
-		size(400, 400);
+		size(1200, 400);
 	}
 
 	public void setup() {
 		smooth();
 		frameRate(30);
 		
-		robot1 = new Robot(50, 150, new int[] {0, 255, 0});
+		robot1 = new Robot(width * 2/8, height * 4/8, new int[] {0, 255, 0});
 		robot2 = new Robot();
-		robot3 = new Robot(250, 150, 255, 255, 0);
+		robot3 = new Robot(width * 6/8, height * 4/8, 255, 255, 0);
 		
 		starSetup();
+		
+		img = imageSetup();
+		image(img, 0, 0);
 	}
 
 	public void draw() {
 		background(255);
+		image(img, 0, 0);
 		
 		robot1.draw();
 		robot2.draw();
@@ -38,6 +45,58 @@ public class Transform2d extends PApplet {
 		translate(mouseX, mouseY);
 		scale((float)0.25);
 		shape(star);
+	}
+	
+	void starSetup() {
+		star = createShape();
+		star.beginShape();
+		star.fill(255, 0, 0);
+		star.stroke(255);
+		star.strokeWeight(2);
+		float vertices[][] = {
+				{0, -50}, 
+				{14, -20}, 
+				{47, -15}, 
+				{23, 7}, 
+				{29, 40}, 
+				{0, 25}, 
+				{-29, 40}, 
+				{-23, 7}, 
+				{-47, -15}, 
+				{-14, -20}};
+		for(float each[] : vertices) {
+			star.vertex(each[0], each[1]);
+		}
+		star.endShape(CLOSE);
+	}	
+	
+	PImage imageSetup() {
+		String imageSource = "";
+		int hr = hour();
+		switch(hr) {
+			case 5: case 6: case 7: case 8: case 9: case 10:
+				imageSource = "http://making-the-internet.s3.amazonaws.com/php-morning.png"; 
+				backColor = (int)Long.parseLong("865f86");
+				break;
+			case 11: case 12: case 13: case 14: case 15: case 16:	
+				imageSource = "http://making-the-internet.s3.amazonaws.com/php-afternoon.png";
+				backColor = (int)Long.parseLong("2c87c8");
+				break;
+			case 17: case 18: case 19: case 20: case 21: case 22:	
+				imageSource = "http://making-the-internet.s3.amazonaws.com/php-evening.png";
+				backColor = (int)Long.parseLong("c7b02f");
+				break;
+			case 23: case 0: case 1: case 2: case 3: case 4:	
+				imageSource = "http://making-the-internet.s3.amazonaws.com/php-night.png";
+				backColor = (int)Long.parseLong("180829");
+				break;
+		}
+		background(backColor);
+		System.out.println("Background: " + backColor);
+		PImage imgSetup = loadImage(imageSource);
+		imgSetup.resize(0, height);
+		
+		return imgSetup;
 	}
 	
 	class Robot {
@@ -63,7 +122,7 @@ public class Transform2d extends PApplet {
 		}	
 		
 		Robot() {
-			this(150, 150, 255, 0, 0);
+			this(width * 4/8, height * 4/8, 255, 0, 0);
 		}	
 		
 		Robot(int x, int y, int[] c) {
@@ -95,7 +154,7 @@ public class Transform2d extends PApplet {
 
 		private void drawRobot(int[] eyes) {
 			noStroke();
-			fill(38, 38, 200);
+			fill(0, 0, 128);
 			rect(20, 0, 38, 30); // head
 			rect(14, 32, 50, 50); // body
 			
@@ -126,26 +185,4 @@ public class Transform2d extends PApplet {
 			popMatrix();
 		}
 	}
-
-	void starSetup() {
-		// First create the shape
-		star = createShape();
-		star.beginShape();
-		// You can set fill and stroke
-		star.fill(255, 0, 0);
-		star.stroke(255);
-		star.strokeWeight(2);
-		// Here, we are hardcoding a series of vertices
-		star.vertex(0, -50);
-		star.vertex(14, -20);
-		star.vertex(47, -15);
-		star.vertex(23, 7);
-		star.vertex(29, 40);
-		star.vertex(0, 25);
-		star.vertex(-29, 40);
-		star.vertex(-23, 7);
-		star.vertex(-47, -15);
-		star.vertex(-14, -20);
-		star.endShape(CLOSE);
-	}	
 }

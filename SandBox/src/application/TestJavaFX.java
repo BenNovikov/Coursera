@@ -5,7 +5,6 @@ import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 
-
 public class TestJavaFX extends Application {
 	@Override
 	public void start(Stage primaryStage) {
@@ -22,6 +21,5 @@ public class TestJavaFX extends Application {
 	
 	public static void main(String[] args) {
 		launch(args);
-	}
-		
+	}		
 }

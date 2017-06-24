@@ -1,12 +1,10 @@
 package application;
 
 public class TestColorsCase {
-
 	public static void main(String[] args) {
 		String colorName = "RED";
 		checkColor(colorName);
-		checkColor("ORANGE");
-		
+		checkColor("ORANGE");		
 	}
 	
 	public static void checkColor(String col) {
@@ -28,5 +26,4 @@ public class TestColorsCase {
 
 		System.out.printf("Color: %s %d\n", col, color);
 	}
-
 }
