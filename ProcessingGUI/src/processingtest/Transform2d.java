@@ -17,13 +17,14 @@ public class Transform2d extends PApplet {
 	}
 
 	public void settings() {
-		size(1200, 400);
+		size(1000, 400);
 	}
 
 	public void setup() {
 		smooth();
 		frameRate(30);
 		
+		//position and eyes color, center red by default
 		robot1 = new Robot(width * 2/8, height * 4/8, new int[] {0, 255, 0});
 		robot2 = new Robot();
 		robot3 = new Robot(width * 6/8, height * 4/8, 255, 255, 0);
@@ -76,23 +77,23 @@ public class Transform2d extends PApplet {
 		switch(hr) {
 			case 5: case 6: case 7: case 8: case 9: case 10:
 				imageSource = "http://making-the-internet.s3.amazonaws.com/php-morning.png"; 
-				backColor = (int)Long.parseLong("865f86");
+				backColor = color(0x865f86);
 				break;
 			case 11: case 12: case 13: case 14: case 15: case 16:	
 				imageSource = "http://making-the-internet.s3.amazonaws.com/php-afternoon.png";
-				backColor = (int)Long.parseLong("2c87c8");
+				backColor = color(0x2c87c8);
 				break;
 			case 17: case 18: case 19: case 20: case 21: case 22:	
 				imageSource = "http://making-the-internet.s3.amazonaws.com/php-evening.png";
-				backColor = (int)Long.parseLong("c7b02f");
+				backColor = color(0xc7b02f);
 				break;
 			case 23: case 0: case 1: case 2: case 3: case 4:	
 				imageSource = "http://making-the-internet.s3.amazonaws.com/php-night.png";
-				backColor = (int)Long.parseLong("180829");
+				backColor = color(0x180829);
 				break;
 		}
 		background(backColor);
-		System.out.println("Background: " + backColor);
+		System.out.println(hr + " hours, Background: " + backColor);
 		PImage imgSetup = loadImage(imageSource);
 		imgSetup.resize(0, height);
 		

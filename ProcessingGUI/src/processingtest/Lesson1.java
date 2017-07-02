@@ -15,11 +15,11 @@ public class Lesson1 extends PApplet {
 	public void setup() {
 		smooth();
 		frameRate(30);
-		back();	
+		setBackground();	
 	}
 	
 	public void draw() {
-		back();
+		setBackground();
 		// Set ellipses and rects to CENTER mode
 		ellipseMode(CENTER);
 		rectMode(CENTER);
@@ -52,7 +52,7 @@ public class Lesson1 extends PApplet {
 		background(255);
 	}
 		
-	public void back() {
+	public void setBackground() {
 		background(255);
 		noStroke();
 		
